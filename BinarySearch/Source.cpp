@@ -2,6 +2,8 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
+int recursions = 0;
+int comparisons = 0;
 
 // Read integers from input and store them in a vector.
 // Return the vector.
@@ -17,7 +19,23 @@ vector<int> ReadIntegers() {
 }
 
 int BinarySearch(int target, vector<int> integers, int lower, int upper) {
-	/* Type your code here. */
+	int middle = upper / 2;
+	recursions++;
+	if (integers.at(middle) == target) {
+		comparisons++;
+		return middle;
+	}
+	if (upper == lower) {
+		return -1;
+	}
+	if (integers.at(middle) < target) {
+		comparisons++;
+		return BinarySearch(target, integers, middle + 1, upper);
+	}
+	else if (integers.at(middle) > target) {
+		comparisons += 2;
+		return BinarySearch(target, integers, lower, middle - 1);
+	}
 }
 
 int main() {
