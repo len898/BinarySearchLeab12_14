@@ -19,20 +19,22 @@ vector<int> ReadIntegers() {
 }
 
 int BinarySearch(int target, vector<int> integers, int lower, int upper) {
-	int middle = upper / 2;
+	int middle = (upper + lower) / 2;
+	cout << middle;
 	recursions++;
 	if (integers.at(middle) == target) {
-		comparisons++;
+		comparisons += 1;
 		return middle;
 	}
-	if (upper == lower) {
+	if (lower == upper) {
+		comparisons++;
 		return -1;
 	}
 	if (integers.at(middle) < target) {
-		comparisons++;
+		comparisons += 2;
 		return BinarySearch(target, integers, middle + 1, upper);
 	}
-	else if (integers.at(middle) > target) {
+	if (integers.at(middle) > target) {
 		comparisons += 2;
 		return BinarySearch(target, integers, lower, middle - 1);
 	}
